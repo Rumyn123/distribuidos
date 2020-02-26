@@ -6,26 +6,30 @@ import java.util.Random;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
- * @author Alumnos
+ * @author Rumyn
  */
-public class Dealer extends Thread{
-    
+public class Fumador extends Thread{
+    private int id;
     private Mesa mesa;
     private Random r = new Random();
     
-    public Dealer(Mesa mesa){
+    public Fumador(int id, Mesa mesa){
         this.mesa = mesa;
+        this.id = id;
     }
     
     public void run(){
         while(true){
-            int ingrediente = r.nextInt(3); //Esto dará un numero aleatorio entre 0 y 2
             try{
+                mesa.inicioFumar(id);
+                //Fumando
                 Thread.sleep(r.nextInt(300));
-                mesa.agregarIngrediente(ingrediente); //Agrega el nuevo ingrediente a la mesa
-                
+                mesa.finFumar(id);
+                //Terminó de fumar
+                Thread.sleep(r.nextInt(300));
             }catch (InterruptedException ex){
                 ex.printStackTrace();
             }
